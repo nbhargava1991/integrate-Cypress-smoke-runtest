@@ -1,0 +1,15 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  rainforest:
+    runs-on: ubuntu-latest
+    name: Run Rainforest
+    steps:
+      - name: Rainforest
+        uses: rainforestapp/github-action@master
+        with:
+          token: ${{ 584f60a13b69d708d110f23173928937 }}
+          run_group_id: 14771
