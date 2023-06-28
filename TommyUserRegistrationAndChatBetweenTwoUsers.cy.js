@@ -6,10 +6,7 @@ describe("MyTommyUserRegistrationAndChatWithTwoUsers", () => {
     cy.get("div.login-screen form > div input").type(Cypress.env('email1'));
     cy.get("div.login-screen i").click();
     cy.get("form > a").click();
-    cy.get("input.input-focused").type("1");
-    cy.get("input.input-focused").type("3");
-    cy.get("input.input-focused").type("3");
-    cy.get("input.input-focused").type("7");
+    cy.get("input.input-focused").type("1337");
     cy.get("#registration-confirm-code form > a").click();
     cy.get("div.grid > div:nth-of-type(1) input").type("test");
     cy.get("form > div.grid > div:nth-of-type(2) input").type("user");
@@ -22,10 +19,7 @@ describe("MyTommyUserRegistrationAndChatWithTwoUsers", () => {
     cy.get("[placeholder='Enter email']").type(Cypress.env('email2'));
     cy.get("div.login-screen i").click();
     cy.get("form > a").click();
-    cy.get("input.input-focused").type("1");
-    cy.get("input.input-focused").type("3");
-    cy.get("input.input-focused").type("3");
-    cy.get("input.input-focused").type("7");
+    cy.get("input.input-focused").type("1337");
     cy.get("#registration-confirm-code form > a").click();
     cy.get("div.grid > div:nth-of-type(1) input").type("test");
     cy.get("form > div.grid > div:nth-of-type(2) input").type("user");
