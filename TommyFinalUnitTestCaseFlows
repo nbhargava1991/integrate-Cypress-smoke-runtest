@@ -1,0 +1,253 @@
+let testDocs = '';
+
+const createScreenshot = (xpath, index, testStep, testDescription, fullscreen = false) => {
+    cy.get(xpath).screenshot(testStep, fullscreen ? {} : { padding: 250 })
+    return `<h3>${index}: ${testStep}</h3><img src="../../cypress/screenshots/ATommyUnitTestingFlows.cy.js/${testStep}.png"><p>${testDescription}</p>`;
+};
+describe("UserCreation", () => {
+    beforeEach(() => {
+        testDocs += '<h1>' + Cypress.currentTest.title + '</h1>';
+    });
+
+    after(() => {
+        cy.writeFile('docs/index.html', testDocs, 'ascii');      
+    });
+
+    it("tests UserCreation", () => {
+      cy.viewport(1097, 856);
+      cy.visit("https://app.mytommy.com/#/registration/");
+      testDocs += createScreenshot("div.login-screen p > a", 1, 'Click login with email', 'A description here');
+      cy.get("div.login-screen p > a").click();
+      cy.get("div.login-screen form > div input").click();
+      testDocs += createScreenshot("div.login-screen form > div input", 2, 'Enter email address', 'A description here');
+      cy.get("div.login-screen form > div input").type(Cypress.env('email1'));
+      cy.get("div.login-screen i").click();
+      cy.get("div.login-screen div.page-content a > span").click();
+      testDocs += createScreenshot("input.input-focused", 3, 'Enter code', 'A description here');
+      cy.get("input.input-focused").type("1337");
+      testDocs += createScreenshot("#registration-confirm-code form > a", 4, 'Click next', 'A description here');
+      cy.get("#registration-confirm-code form > a").click();
+      testDocs += createScreenshot("div.grid > div:nth-of-type(1) input", 5, 'Enter first name', 'A description here');
+      cy.get("div.grid > div:nth-of-type(1) input").type("test");
+      testDocs += createScreenshot("form > div.grid > div:nth-of-type(2) input", 6, 'Enter last name', 'A description here');
+      cy.get("form > div.grid > div:nth-of-type(2) input").type("user");
+      testDocs += createScreenshot("#registration-details > div.page-content a", 7, 'Click next', 'A description here');
+      cy.get("#registration-details > div.page-content a").click();
+      cy.get(".fa-icon.fa-light.fa-square-arrow-left").click();
+      cy.get(".dialog-button.button-ok").click();
+    });
+
+    it("UserLoginandCreateTeam", () => {
+        cy.viewport(1097, 856);
+        cy.visit("https://app.mytommy.com/#/registration/");
+        cy.get("div.login-screen p > a").click();
+        cy.get("div.login-screen form > div input").click();
+        cy.get("div.login-screen form > div input").type(Cypress.env('email1'));
+        cy.get("div.login-screen i").click();
+        cy.get("div.login-screen div.page-content a > span").click();
+        cy.get("input.input-focused").type("1337");
+        cy.get("#registration-confirm-code form > a").click();
+        cy.wait(3500)
+        cy.get(".teams-tab-link").click();
+        cy.wait(3500)
+        testDocs += createScreenshot("#sidebar-teams-tab [data-cy='sidebar-create-team-button']", 1, 'Click create team account', 'A description here');
+        cy.get('#sidebar-teams-tab [data-cy="sidebar-create-team-button"]').click();
+        testDocs += createScreenshot("[data-cy='create-team-select-essentials-plan-button']", 2, 'Select plan', 'A description here');
+        cy.get('[data-cy="create-team-select-essentials-plan-button"]').click();
+        testDocs += createScreenshot("[placeholder='Enter team name...", 3, 'Enter team name', 'A description here');
+        cy.get("[placeholder='Enter team name...']").type("testteamqa");
+        cy.get("#framework7-root > div.view i").click();
+        testDocs += createScreenshot("#framework7-root > div.view div.large-grid-cols-2 a", 4, 'Click on next', 'A description here');
+        cy.get("#framework7-root > div.view div.large-grid-cols-2 a").click();
+        cy.get("div.item-input-focused input").click();
+        testDocs += createScreenshot("div.item-input-focused input", 5, 'Enter location', 'A description here');
+        cy.get("div.item-input-focused input").type("testloactionqa");
+        cy.get("[placeholder='Enter location address...']").type("testaddressqa");
+        testDocs += createScreenshot("[data-cy='create-team-locations-next-button']", 7, 'Click on next', 'A description here');
+        cy.get('[data-cy="create-team-locations-next-button"]').click();
+        testDocs += createScreenshot("[placeholder='Enter role name...']", 8, 'Enter role', 'A description here');
+        cy.get("[placeholder='Enter role name...']").type("testroleqa");
+        testDocs += createScreenshot("[data-cy='create-team-roles-next-button']", 9, 'Click on next', 'A description here');
+        cy.get('[data-cy="create-team-roles-next-button"]').click();
+        testDocs += createScreenshot("[placeholder='Enter skill name...']", 10, 'Enter skill', 'A description here');
+        cy.get("[placeholder='Enter skill name...']").type("testskillqa");
+        testDocs += createScreenshot("#framework7-root > div.view > div.page-current div.large-grid-cols-2 a", 11, 'Click on next', 'A description here');
+        cy.get("#framework7-root > div.view > div.page-current div.large-grid-cols-2 a").click();
+        cy.wait(2500)
+        cy.get("#framework7-root > div.view > div.page-current > div.page-content a > span").click();
+        cy.wait(5500)
+        cy.get("#user-info").click();
+        cy.get(".fa-icon.fa-light.fa-square-arrow-left").click();
+        cy.get(".dialog-button.button-ok").click();
+    });
+
+    it("CreateSecondUser", () => {
+       cy.viewport(1097, 856);
+       cy.visit("https://app.mytommy.com/#/registration/");
+       testDocs += createScreenshot("div.login-screen p > a", 1, 'Click login with email', 'A description here');
+       cy.get("div.login-screen p > a").click();
+       cy.get("div.login-screen form > div input").click();
+       cy.get("div.login-screen form > div input").type(Cypress.env('email2'));
+       cy.get("div.login-screen i").click();
+       cy.get("div.login-screen div.page-content a > span").click();
+       cy.get("input.input-focused").type("1337");
+       cy.get("#registration-confirm-code form > a").click();
+       cy.get("div.grid > div:nth-of-type(1) input").type("test");
+       cy.get("form > div.grid > div:nth-of-type(2) input").type("user");
+       cy.get("#registration-details > div.page-content a").click();
+       cy.get(".fa-icon.fa-light.fa-square-arrow-left").click();
+       cy.get(".dialog-button.button-ok").click();
+});
+
+    it("tests UserLoginandInviteTeamMember", () => {
+        cy.viewport(3000, 2430);
+        cy.visit("https://app.mytommy.com/#/registration/");
+        cy.get("div.login-screen p > a").click();
+        cy.get("div.login-screen form > div input").click();
+        cy.get("div.login-screen form > div input").type(Cypress.env('email1'));
+        cy.get("div.login-screen i").click();
+        cy.get("div.login-screen div.page-content a > span").click();
+        cy.get("input.input-focused").type("1337");
+        cy.get("#registration-confirm-code form > a").click();
+        cy.wait(3500)
+        cy.get(".teams-tab-link").click();
+        cy.wait(3500)
+        cy.get('[data-cy="teams-tab-account-list-item"][data-cy-account-type="Team"]').click();  
+        testDocs += createScreenshot("#sidebar-menu-tab .menu-team a", 1, 'Click team', 'A description here');
+        cy.get("#sidebar-menu-tab .menu-team a").click();
+        testDocs += createScreenshot("#sidebar-menu-tab .menu-team a", 2, 'Click add a new team member', 'A description here');
+        cy.get('[data-cy="teams-navbar-add-team-member-button"]').click();
+        testDocs += createScreenshot("[data-cy='team-member-invite-first-name-input']", 3, 'Enter first name', 'A description here');
+        cy.get('[data-cy="team-member-invite-first-name-input"]').type("test");
+        testDocs += createScreenshot("[data-cy='team-member-invite-last-name-input']", 4, 'Enter last name', 'A description here');
+        cy.get('[data-cy="team-member-invite-last-name-input"]').type("user");
+        testDocs += createScreenshot("[data-cy='team-member-invite-email-input']", 5, 'Enter email address', 'A description here');
+        cy.get('[data-cy="team-member-invite-email-input"]').type(Cypress.env('email2'));
+        testDocs += createScreenshot("[data-cy='team-member-invite-toolbar-invite-button']", 6, 'Click invite', 'A description here');
+        cy.get('[data-cy="team-member-invite-toolbar-invite-button"]').click();
+    });
+
+    it("tests CreateAssignAndPublishShift", () => { 
+        cy.viewport(1500, 1260);
+        cy.visit("https://app.mytommy.com/#/registration/");
+        cy.get("div.login-screen p > a").click();
+        cy.get("div.login-screen form > div input").click();
+        cy.get("div.login-screen form > div input").type(Cypress.env('email1'));
+        cy.get("div.login-screen i").click();
+        cy.get("div.login-screen div.page-content a > span").click();
+        cy.get("input.input-focused").type("1337");
+        cy.get("#registration-confirm-code form > a").click();
+        cy.wait(3500)
+        cy.get(".teams-tab-link").click();
+        cy.wait(3500)
+        cy.get('[data-cy="teams-tab-account-list-item"][data-cy-account-type="Team"]').click();
+        cy.wait(3500)
+        cy.get("#sidebar-menu-tab .menu-addon-scheduling a").click();
+        cy.wait(2000)
+        cy.get("#sidebar-menu-tab .menu-addon-scheduling a").click();
+        cy.get('[data-cy="addon-scheduling-content-activate-button"]').click();
+        cy.get('[data-cy="scheduling-navbar-new-shift-button"]').click();
+        cy.get('[data-cy="scheduling-shift-form-popup-location-tag-input"]').type('testlocationqa{enter}');
+        cy.get('[data-cy="scheduling-shift-form-popup-role-tag-input"]').type('testroleqa{enter}');
+        cy.get('[data-cy="scheduling-shift-form-popup-tags-tag-input"]').type('testskillqa{enter}');
+        cy.get('[data-cy="scheduling-shift-form-popup-employees-input"]').click();
+        cy.get('[data-cy="scheduling-employee-select-sheet-assign-employee-checkbox"]').click();
+        cy.get('[data-cy="scheduling-employee-select-sheet-navbar-assign-button"]').click();
+        cy.get('[data-cy="scheduling-shift-form-popup-save-button"]').click();
+        cy.get('[data-cy="scheduling-navbar-publish-button"]').click();
+        cy.get('[data-cy="scheduling-publish-shifts-popup-publish-shifts-button"]').click();
+       
+    });
+
+     it("tests TeamMemberTimeClocking", () => {
+        cy.viewport(1097, 856);
+        cy.visit("https://app.mytommy.com/#/registration/");
+        cy.get("div.login-screen p > a").click();
+        cy.get("div.login-screen form > div input").click();
+        cy.get("div.login-screen form > div input").type(Cypress.env('email1'));
+        cy.get("div.login-screen i").click();
+        cy.get("div.login-screen div.page-content a > span").click();
+        cy.get("input.input-focused").type("1337");
+        cy.get("#registration-confirm-code form > a").click();
+        cy.wait(3500)
+        cy.get(".teams-tab-link").click();
+        cy.wait(3500)
+        cy.get('[data-cy="teams-tab-account-list-item"][data-cy-account-type="Team"]').click();
+        cy.wait(3500)
+        testDocs += createScreenshot("#sidebar-menu-tab .menu-addon-time_clock a", 1, 'Time clock', 'A description here');
+        cy.get("#sidebar-menu-tab .menu-addon-time_clock a").click();
+        cy.wait(3500)
+        cy.get("#sidebar-menu-tab .menu-addon-time_clock a").click();
+        testDocs += createScreenshot("[data-cy='addon-time_clock-content-activate-button']", 2, 'Click activate', 'A description here');
+        cy.get('[data-cy="addon-time_clock-content-activate-button"]').click();
+        cy.get('.fa.fa-light.fa-clock').click();
+        cy.get('.fa.fa-light.fa-clock').click();
+
+    });
+ 
+   it("tests TimeSheets", () => {
+       cy.viewport(1097, 856);
+       cy.visit("https://app.mytommy.com/#/registration/");
+       cy.get("div.login-screen p > a").click();
+       cy.get("div.login-screen form > div input").click();
+       cy.get("div.login-screen form > div input").type(Cypress.env('email1'));
+       cy.get("div.login-screen i").click();
+       cy.get("div.login-screen div.page-content a > span").click();
+       cy.get("input.input-focused").type("1337");
+       cy.get("#registration-confirm-code form > a").click();
+       cy.wait(3500)
+       cy.get(".teams-tab-link").click();
+       cy.wait(3500)
+       cy.get('[data-cy="teams-tab-account-list-item"][data-cy-account-type="Team"]').click();
+       cy.wait(3500)
+       cy.get('#sidebar-menu-tab .menu-addon-timesheets').click();
+       cy.wait(3500)
+       cy.get('#sidebar-menu-tab .menu-addon-timesheets').click();
+       cy.get('[data-cy="addon-timesheets-content-activate-button"]').click();
+       cy.get("a.with-badge > span").click();
+       cy.get("a.button-outline > span").click();
+       cy.get("a[href='/timesheets/timesheet/form/new/']").click();
+       cy.get("a[disabled='false']").click();
+
+   });
+
+    it("tests DeleteUser", () => {
+        cy.viewport(1097, 856);
+        cy.visit("https://app.mytommy.com/#/registration/");
+        cy.get("div.login-screen p > a").click();
+        cy.get("div.login-screen form > div input").click();
+        cy.get("div.login-screen form > div input").type(Cypress.env('email2'));
+        cy.get("div.login-screen i").click();
+        cy.get("div.login-screen div.page-content a > span").click();
+        cy.get("input.input-focused").type("1337");
+        cy.get("#registration-confirm-code form > a").click();
+        cy.wait(2500)
+        cy.get("#user-info").click();
+        cy.get(".fa-icon.fa-light.fa-lock").click();
+        cy.get('[data-cy="account-security-tommy-account-list-item"]').click();
+        cy.get('[data-cy="account-tommy-delete-account-first-name-input"]').type("test");
+        cy.get('[data-cy="account-tommy-delete-account-last-name-input"]').type("user");
+        cy.get('[data-cy="account-tommy-delete-account-enter-delete-input"]').type("DELETE");
+        cy.get('[data-cy="account-tommy-delete-account-delete-button"]').click();
+        cy.get(".dialog-button.button-ok").click();
+
+    }
+    )
+  }
+)
+
+
+    
+
+
+
+ 
+ 
+ 
+
+
+ 
+
+ 
+
+    
