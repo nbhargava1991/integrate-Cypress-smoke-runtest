@@ -142,24 +142,31 @@ describe("UserCreation", () => {
         cy.wait(3500)
         cy.get('[data-cy="teams-tab-account-list-item"][data-cy-account-type="Team"]').click();
         cy.wait(3500)
+        testDocs += createScreenshot("#sidebar-menu-tab .menu-addon-scheduling a", 1, 'Click Scheduling', 'A description here');
         cy.get("#sidebar-menu-tab .menu-addon-scheduling a").click();
         cy.wait(2000)
         cy.get("#sidebar-menu-tab .menu-addon-scheduling a").click();
+        testDocs += createScreenshot('[data-cy="addon-scheduling-content-activate-button"]', 2, 'Activate', 'A description here');
         cy.get('[data-cy="addon-scheduling-content-activate-button"]').click();
+        testDocs += createScreenshot('[data-cy="scheduling-navbar-new-shift-button"]', 3, 'New shift', 'A description here');
         cy.get('[data-cy="scheduling-navbar-new-shift-button"]').click();
+        testDocs += createScreenshot('[data-cy="scheduling-shift-form-popup-location-tag-input"]', 4, 'Team info', 'A description here');
         cy.get('[data-cy="scheduling-shift-form-popup-location-tag-input"]').type('testlocationqa{enter}');
         cy.get('[data-cy="scheduling-shift-form-popup-role-tag-input"]').type('testroleqa{enter}');
         cy.get('[data-cy="scheduling-shift-form-popup-tags-tag-input"]').type('testskillqa{enter}');
         cy.get('[data-cy="scheduling-shift-form-popup-employees-input"]').click();
+        testDocs += createScreenshot('[data-cy="scheduling-employee-select-sheet-assign-employee-checkbox"]', 5, 'Select member', 'A description here');
         cy.get('[data-cy="scheduling-employee-select-sheet-assign-employee-checkbox"]').click();
+        testDocs += createScreenshot('[data-cy="scheduling-employee-select-sheet-navbar-assign-button"]', 6, 'Assign', 'A description here');
         cy.get('[data-cy="scheduling-employee-select-sheet-navbar-assign-button"]').click();
         cy.get('[data-cy="scheduling-shift-form-popup-save-button"]').click();
         cy.get('[data-cy="scheduling-navbar-publish-button"]').click();
+        testDocs += createScreenshot('[data-cy="scheduling-publish-shifts-popup-publish-shifts-button"]', 7, 'Publish', 'A description here');
         cy.get('[data-cy="scheduling-publish-shifts-popup-publish-shifts-button"]').click();
        
     });
 
-     it("tests TeamMemberTimeClocking", () => {
+     it("tests TeamMemberTimeClockingInOut", () => {
         cy.viewport(1097, 856);
         cy.visit("https://app.mytommy.com/#/registration/");
         cy.get("div.login-screen p > a").click();
@@ -185,7 +192,7 @@ describe("UserCreation", () => {
 
     });
  
-   it("tests TimeSheets", () => {
+   it("tests TimeSheetApproveExportAndCreate", () => {
        cy.viewport(1097, 856);
        cy.visit("https://app.mytommy.com/#/registration/");
        cy.get("div.login-screen p > a").click();
@@ -200,10 +207,13 @@ describe("UserCreation", () => {
        cy.wait(3500)
        cy.get('[data-cy="teams-tab-account-list-item"][data-cy-account-type="Team"]').click();
        cy.wait(3500)
+       testDocs += createScreenshot('#sidebar-menu-tab .menu-addon-timesheets', 1, 'Click time sheet', 'A description here');
        cy.get('#sidebar-menu-tab .menu-addon-timesheets').click();
        cy.wait(3500)
        cy.get('#sidebar-menu-tab .menu-addon-timesheets').click();
+       testDocs += createScreenshot('[data-cy="addon-timesheets-content-activate-button"]', 2, 'Activate', 'A description here');
        cy.get('[data-cy="addon-timesheets-content-activate-button"]').click();
+       testDocs += createScreenshot("a.with-badge > span", 3, 'Approve', 'A description here');
        cy.get("a.with-badge > span").click();
        cy.get("a.button-outline > span").click();
        cy.get("a[href='/timesheets/timesheet/form/new/']").click();
